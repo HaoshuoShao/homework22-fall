@@ -29,7 +29,8 @@ class GoodInformation:
             goodNum = dataReader.line_num
 
             if goodNum:
-                dataWriter.writerow([self.GetGoods, self.GetProvider, self.GetTime, self.GetAmount, self.GetIsChanged, self.GetDes])
+                dataWriter.writerow([self.GetGoods, self.GetProvider, self.GetTime, 
+                                     self.GetAmount, self.GetIsChanged, self.GetDes])
             else:
                 dataWriter.writerow(['goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
 

@@ -1,18 +1,16 @@
 import csv
+from typing import Literal
 
-import class_hw
+import function_hw as F
 
-with open('./docs/DATA.csv', mode='w', newline='') as employee_file:
-    employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+F.clearItem()
 
-    employee_writer.writerow(['goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
+F.AddItem('Bad', 'NONE', '2022/9/12', '5KG', 'False', 'Haha')
+F.AddItem('ilala', 'NONE', '2022/9/12', '5KG', 'False', 'Haha')
+F.AddItem('notBad', 'NONE', '2022/9/12', '5KG', 'False', 'Haha')
+F.AddItem('stupid', 'NONE', '2022/9/12', '5KG', 'False', 'Haha')
+F.AddItem('huaji', 'NONE', '2022/9/12', '5KG', 'False', 'Haha')
 
-with open('./docs/DATA.csv') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',')
-    line_count = 0
-    for row in csv_reader:
-        print(row)
-
-newLine = class_hw.GoodInformation('goods', 'provider', 'time', 'amount', 'False', 'des')
-
-newLine.WriteGoodInfo()
+F.DeleteItem(4)
+F.ShowItems()
+F.queryItem('h')

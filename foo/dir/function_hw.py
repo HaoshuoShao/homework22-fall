@@ -3,24 +3,59 @@ import sys
 
 import csv
 
-sys.path.append("..")
-from class_dir import mod_class
+import class_hw
+
+
+# 清空重置csv文件
+def clearItem():
+    with open('./docs/DATA.csv', mode='w', newline='') as f:
+        dataWriter = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
+
 
 # 添加物品条目进入csv文件
 def AddItem(goods, provider, time, amount, isChanged, des):
-    #TODO 创建GoodInformation实例，写入csv文件
-    return
+    newGoodInfo = class_hw.GoodInformation(goods, provider, time, amount, isChanged, des)
+    newGoodInfo.WriteGoodInfo()
+
 
 # 删除物品条目从csv文件中
 def DeleteItem(index):
-    #TODO 修改csv文件对应行，isChanged状态修改为True
-    return
+    index = index - 1
+    with open('./docs/DATA.csv', newline='') as f:
+        data = [row for row in csv.DictReader(f)]
+    
+    with open('./docs/DATA.csv', mode='w', newline='') as f:
+        dataWriter = csv.writer(f)
+
+        data[index]['isChanged'] = 'True'
+
+        dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
+        for line in data:
+            dataWriter.writerow(list(line.values()))
+        
 
 # 显示物品列表
 def ShowItems():
-    #TODO 按照行顺序遍历输出isChanged 为False的物品信息
-    return
+    with open('./docs/DATA.csv', newline='') as f:
+        dataReader = csv.DictReader(f)
 
-def queryItem():
-    #TODO 按照行顺序遍历输出good 包含query 且isChanged 为False的物品信息
-    return
+        print("物品列表如下：")
+
+        for line in dataReader:
+            if line['isChanged'] == 'False':
+                print(line.values())
+
+
+# 根据关键字查询物品
+def queryItem(query):
+    with open('./docs/DATA.csv', newline='') as f:
+        dataReader = csv.DictReader(f)
+
+        print("发现包含", end=' ')
+        print(query,end=' ')
+        print("的内容如下：")
+
+        for line in dataReader:
+            if (line['isChanged'] == 'False') and (query in line['goods']):
+                print(line.values())

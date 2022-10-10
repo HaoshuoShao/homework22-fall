@@ -1,2 +1,6 @@
-goods,provider,time,amount,isChanged,des
-goods,provider,time,amount,isChanged,des
+index,goods,provider,time,amount,isChanged,des
+1,Bad,NONE,2022/9/12,5KG,False,Haha
+2,ilala,NONE,2022/9/12,5KG,False,Haha
+3,notBad,NONE,2022/9/12,5KG,False,Haha
+4,stupid,NONE,2022/9/12,5KG,True,Haha
+5,huaji,NONE,2022/9/12,5KG,False,Haha

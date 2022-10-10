@@ -22,17 +22,23 @@ class GoodInformation:
 
     # 将物品信息写入csv文件
     def WriteGoodInfo(self):
-        with open('./docs/DATA.csv', mode='a', newline='') as dataFile:
-            dataReader = csv.reader(dataFile, delimiter=',')
-            dataWriter = csv.writer(dataFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        with open('./docs/DATA.csv', newline='') as f:
+            dataReader = csv.reader(f, delimiter=',')
+            goodNum = 0
+            for line in dataReader:
+                goodNum += 1
 
-            goodNum = dataReader.line_num
 
+        with open('./docs/DATA.csv', mode='a', newline='') as f:
+            dataWriter = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        
             if goodNum:
-                dataWriter.writerow([self.GetGoods, self.GetProvider, self.GetTime, 
-                                     self.GetAmount, self.GetIsChanged, self.GetDes])
+                dataWriter.writerow([goodNum, self.GetGoods(), self.GetProvider(), self.GetTime(), 
+                                     self.GetAmount(), self.GetIsChanged(), self.GetDes()])
+                
             else:
-                dataWriter.writerow(['goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
+                dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
+                                     
 
     # 访问物品信息
     def GetGoods(self):

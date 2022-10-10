@@ -4,7 +4,7 @@ import sys
 import csv
 
 sys.path.append("..")
-import mod_class.mod_class
+from class_dir import mod_class
 
 # 添加物品条目进入csv文件
 def AddItem(goods, provider, time, amount, isChanged, des):

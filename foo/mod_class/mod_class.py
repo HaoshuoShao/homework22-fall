@@ -20,15 +20,34 @@ class GoodInformation:
         self.isChanged = isChanged
         self.des = des
 
-        #self.index = 0  #TODO 读取csv文件，分配物品编号
-    
-    #TODO 按照物品编号访问csv文件，读取对应物品信息
-    def ReadGoodInfo(self, index):
-        
-        
-        return 
-
-    #TODO 将物品信息写入csv文件
+    # 将物品信息写入csv文件
     def WriteGoodInfo(self):
+        with open('./docs/DATA.csv', mode='a', newline='') as dataFile:
+            dataReader = csv.reader(dataFile, delimiter=',')
+            dataWriter = csv.writer(dataFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-    
+            goodNum = dataReader.line_num
+
+            if goodNum:
+                dataWriter.writerow([self.GetGoods, self.GetProvider, self.GetTime, self.GetAmount, self.GetIsChanged, self.GetDes])
+            else:
+                dataWriter.writerow(['goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
+
+    # 访问物品信息
+    def GetGoods(self):
+        return self.goods
+
+    def GetProvider(self):
+        return self.provider
+
+    def GetTime(self):
+        return self.time
+
+    def GetAmount(self):
+        return self.amount
+
+    def GetIsChanged(self):
+        return self.isChanged
+
+    def GetDes(self):
+        return self.des

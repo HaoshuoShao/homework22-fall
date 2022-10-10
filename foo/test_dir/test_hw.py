@@ -2,7 +2,6 @@ import os
 import sys
 
 import csv 
-
 sys.path.append("..")
 from mod_class import mod_class
 
@@ -17,6 +16,6 @@ with open('./docs/DATA.csv') as csv_file:
     for row in csv_reader:
         print(row)
 
-newLine = mod_class.GoodInformation('goods', 'provider', 'time', 'amount', False, 'des')
+newLine = mod_class.GoodInformation('goods', 'provider', 'time', 'amount', 'False', 'des')
 
 newLine.WriteGoodInfo()

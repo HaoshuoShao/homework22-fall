@@ -27,7 +27,11 @@ def DeleteItem(index):
     
     with open('./docs/DATA.csv', mode='w', newline='') as f:
         dataWriter = csv.writer(f)
-
+        
+        if (index >= csv.reader(f).line_num) or (data[index]['isChanged'] == 'True'):
+            print("无此项或已删除")
+            return
+        
         data[index]['isChanged'] = 'True'
 
         dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
@@ -40,11 +44,10 @@ def ShowItems():
     with open('./docs/DATA.csv', newline='') as f:
         dataReader = csv.DictReader(f)
 
-        print("物品列表如下：")
-
+        print("物品信息列表如下：")
         for line in dataReader:
             if line['isChanged'] == 'False':
-                print(line.values())
+                print(line)
 
 
 # 根据关键字查询物品

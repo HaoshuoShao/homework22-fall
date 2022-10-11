@@ -1,5 +1,4 @@
 import csv
-from typing import Literal
 
 import function_hw as F
 

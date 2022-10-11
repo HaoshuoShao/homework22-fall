@@ -1,7 +1,6 @@
 import os
 import sys
 
-import class_hw as C
 import function_hw as F
 
 while 1:
@@ -50,7 +49,6 @@ while 1:
     else:
         next
     
-    # 输入回车继续
     print("输入任意字符继续")
     input()
     os.system('cls')

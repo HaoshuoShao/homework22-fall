@@ -1,6 +1,3 @@
-import os
-import sys
-
 import csv
 
 import class_hw

@@ -1,4 +1,3 @@
-import os
 import csv
 
 # GoodInformation类用于存储物品信息

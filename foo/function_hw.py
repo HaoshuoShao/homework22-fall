@@ -1,54 +1,69 @@
+#!/user/bin/env python
+# -*- coding:utf-8 -*-
+# 作者：邵豪硕
+# 创建：2022-10-10
+# 更新：2022-10-25
+# 作用：定义“添加物品条目进入csv文件” “删除物品条目从csv文件中” 
+# “显示物品列表” “根据关键字查询物品” “清空重置csv文件” 等操作指令
+
 import csv
 
 import class_hw
 
 
-# 清空重置csv文件
-def clearItem():
+def ClearItem():
     with open('./docs/DATA.csv', mode='w', newline='') as f:
         dataWriter = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
 
 
-# 添加物品条目进入csv文件
-def AddItem(goods, provider, time, amount, isChanged, des):
+def AddItem(goods, provider = '', time = '', amount = '', isChanged = False, des = ''):
     newGoodInfo = class_hw.GoodInformation(goods, provider, time, amount, isChanged, des)
     newGoodInfo.WriteGoodInfo()
 
 
-# 删除物品条目从csv文件中
 def DeleteItem(index):
-    index = index - 1
+
     with open('./docs/DATA.csv', newline='') as f:
-        data = [row for row in csv.DictReader(f)]
+        data = []
+        goodsNum = 0
+
+        #计算csv文件条目数量，因为csv.line_num有问题
+        for row in csv.DictReader(f):   
+            data.append(row)
+            goodsNum += 1
+
+        #判断删除项是否已经被删除/下标越界
+        if (index > goodsNum) or (data[index - 1]['isChanged'] == 'True'): 
+            print(goodsNum)
+            print("无此项或已删除")
+
+            return
     
     with open('./docs/DATA.csv', mode='w', newline='') as f:
         dataWriter = csv.writer(f)
         
-        if (index >= csv.reader(f).line_num) or (data[index]['isChanged'] == 'True'):
-            print("无此项或已删除")
-            return
-        
-        data[index]['isChanged'] = 'True'
+        data[index - 1]['isChanged'] = 'True'
 
         dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
         for line in data:
             dataWriter.writerow(list(line.values()))
+
+        print("第%s项物品已删除"%index)
+
         
 
-# 显示物品列表
 def ShowItems():
     with open('./docs/DATA.csv', newline='') as f:
         dataReader = csv.DictReader(f)
 
         print("物品信息列表如下：")
         for line in dataReader:
-            if line['isChanged'] == 'False':
+            if line['isChanged'] == 'False': #不显示已被删除的条目
                 print(line)
 
 
-# 根据关键字查询物品
-def queryItem(query):
+def QueryItem(query):
     with open('./docs/DATA.csv', newline='') as f:
         dataReader = csv.DictReader(f)
 

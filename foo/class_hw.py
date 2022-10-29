@@ -30,20 +30,20 @@ class GoodInformation:
         self.des = des
 
     def WriteGoodInfo(self):
-        if not os.path.exists('./docs/DATA.csv'):
-            with open('./docs/DATA.csv', mode='w', newline='') as f:
+        if not os.path.exists('./DATA.csv'):
+            with open('./DATA.csv', mode='w', newline='') as f:
                 dataWriter = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
 
 
-        with open('./docs/DATA.csv', newline='') as f:
+        with open('./DATA.csv', newline='') as f:
             dataReader = csv.reader(f, delimiter=',')
             goodsNum = 0
             for line in dataReader:
                 if line:
                     goodsNum += 1
 
-        with open('./docs/DATA.csv', mode='a+', newline='') as f:
+        with open('./DATA.csv', mode='a+', newline='') as f:
             dataWriter = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         
             if goodsNum:

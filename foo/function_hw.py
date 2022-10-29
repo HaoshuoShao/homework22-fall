@@ -13,7 +13,7 @@ import class_hw
 
 
 def ClearItem():
-    with open('./docs/DATA.csv', mode='w', newline='') as f:
+    with open('./DATA.csv', mode='w', newline='') as f:
         dataWriter = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
 
@@ -28,7 +28,7 @@ def AddItem(goods, provider = '', amount = '', isChanged = False, des = ''):
 
 def DeleteItem(index):
 
-    with open('./docs/DATA.csv', newline='') as f:
+    with open('./DATA.csv', newline='') as f:
         data = []
         goodsNum = 0
 
@@ -44,7 +44,7 @@ def DeleteItem(index):
 
             return
     
-    with open('./docs/DATA.csv', mode='w', newline='') as f:
+    with open('./DATA.csv', mode='w', newline='') as f:
         dataWriter = csv.writer(f)
         
         data[index - 1]['isChanged'] = 'True'
@@ -58,11 +58,11 @@ def DeleteItem(index):
         
 
 def ShowItems():
-    if not os.path.exists('./docs/DATA.csv'):
+    if not os.path.exists('./DATA.csv'):
         print("没有记录的物品信息")
         return
     
-    with open('./docs/DATA.csv', newline='') as f:
+    with open('./DATA.csv', newline='') as f:
         dataReader = csv.DictReader(f)
 
         print("物品信息列表如下：")
@@ -72,11 +72,11 @@ def ShowItems():
 
 
 def QueryItem(query):
-    if not os.path.exists('./docs/DATA.csv'):
+    if not os.path.exists('./DATA.csv'):
         print("没有记录的物品信息")
         return
 
-    with open('./docs/DATA.csv', newline='') as f:
+    with open('./DATA.csv', newline='') as f:
         dataReader = csv.DictReader(f)
 
         print("发现包含", end=' ')
@@ -84,5 +84,5 @@ def QueryItem(query):
         print("的内容如下：")
 
         for line in dataReader:
-            if (line['isChanged'] == 'False') and (query in line['goods']):
+            if (line['isChanged'] == 'False') and ((query in line['goods']) or (query in line['index'])):
                 print(line.values())

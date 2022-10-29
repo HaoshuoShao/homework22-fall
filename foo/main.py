@@ -26,9 +26,13 @@ while 1:
 
         isChanged = False
 
-        goods, provider, amount, des = (input().split())
+        try:
+            goods, provider, amount, des = (input().split())
 
-        F.AddItem(goods, provider, amount, isChanged, des)
+            F.AddItem(goods, provider, amount, isChanged, des)
+
+        except ValueError:
+            print("请检查输入是否符合格式")
 
     elif optIndex == '2':
         print("需要删除的物品编号:")

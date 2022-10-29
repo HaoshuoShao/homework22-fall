@@ -1,8 +1,8 @@
 # import csv
 
-# import function_hw as F
+import function_hw as F
 
-# F.ClearItem()
+F.ClearItem()
 
 # F.AddItem('Bad', 'NONE', '2022/9/12', '5KG', 'False', 'Haha')
 # F.AddItem('ilala', 'NONE', '2022/9/12', '5KG', 'False', 'Haha')
@@ -19,3 +19,4 @@ import time
 getTime = time.localtime(time.time())
 print(str(getTime.tm_year) + '/' + str(getTime.tm_mon) + '/' + str(getTime.tm_mday)
 )
+

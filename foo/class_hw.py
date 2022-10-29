@@ -6,6 +6,9 @@
 # 作用：定义了用于读写物品信息的类以及读写方法
 
 import csv
+import os
+
+
 
 # GoodInformation类用于存储物品信息
 class GoodInformation:
@@ -27,15 +30,20 @@ class GoodInformation:
         self.des = des
 
     def WriteGoodInfo(self):
+        if not os.path.exists('./docs/DATA.csv'):
+            with open('./docs/DATA.csv', mode='w', newline='') as f:
+                dataWriter = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
+
+
         with open('./docs/DATA.csv', newline='') as f:
             dataReader = csv.reader(f, delimiter=',')
             goodsNum = 0
             for line in dataReader:
-                goodsNum += 1
                 if line:
-                    print(" ")
+                    goodsNum += 1
 
-        with open('./docs/DATA.csv', mode='a', newline='') as f:
+        with open('./docs/DATA.csv', mode='a+', newline='') as f:
             dataWriter = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         
             if goodsNum:
@@ -43,7 +51,9 @@ class GoodInformation:
                                      self.GetAmount(), self.GetIsChanged(), self.GetDes()])
                 
             else:
-                dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
+                
+                dataWriter.writerow([goodsNum, self.GetGoods(), self.GetProvider(), self.GetTime(), 
+                                     self.GetAmount(), self.GetIsChanged(), self.GetDes()])
                                      
 
     # 访问物品信息

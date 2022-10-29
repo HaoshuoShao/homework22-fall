@@ -5,9 +5,7 @@
 # 更新：2022-10-23
 # 作用：存储修改居民用于交换的物品信息
 
-import os
 import sys
-import time
 
 import function_hw as F
 
@@ -25,16 +23,12 @@ while 1:
     # 操作选项
     if optIndex == '1':
         print("依次输入物品名称，提供者，数量，备注信息，以空格分隔")
-        
-        # 获取时间
-        getTime = time.localtime(time.time())
-        getDate = str(getTime.tm_year) + '/' + str(getTime.tm_mon) + '/' + str(getTime.tm_mday)
 
         isChanged = False
 
         goods, provider, amount, des = (input().split())
 
-        F.AddItem(goods, provider, time, amount, isChanged, des)
+        F.AddItem(goods, provider, amount, isChanged, des)
 
     elif optIndex == '2':
         print("需要删除的物品编号:")

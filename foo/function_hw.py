@@ -7,7 +7,8 @@
 # “显示物品列表” “根据关键字查询物品” “清空重置csv文件” 等操作指令
 
 import csv
-
+import os
+import time
 import class_hw
 
 
@@ -17,8 +18,11 @@ def ClearItem():
         dataWriter.writerow(['index', 'goods', 'provider', 'time', 'amount', 'isChanged', 'des'])
 
 
-def AddItem(goods, provider = '', time = '', amount = '', isChanged = False, des = ''):
-    newGoodInfo = class_hw.GoodInformation(goods, provider, time, amount, isChanged, des)
+def AddItem(goods, provider = '', amount = '', isChanged = False, des = ''):
+    # 获取时间
+    getTime = time.localtime(time.time())
+    getDate = str(getTime.tm_year) + '/' + str(getTime.tm_mon) + '/' + str(getTime.tm_mday)
+    newGoodInfo = class_hw.GoodInformation(goods, provider, getDate, amount, isChanged, des)
     newGoodInfo.WriteGoodInfo()
 
 
@@ -54,6 +58,10 @@ def DeleteItem(index):
         
 
 def ShowItems():
+    if not os.path.exists('./docs/DATA.csv'):
+        print("没有记录的物品信息")
+        return
+    
     with open('./docs/DATA.csv', newline='') as f:
         dataReader = csv.DictReader(f)
 
@@ -64,6 +72,10 @@ def ShowItems():
 
 
 def QueryItem(query):
+    if not os.path.exists('./docs/DATA.csv'):
+        print("没有记录的物品信息")
+        return
+
     with open('./docs/DATA.csv', newline='') as f:
         dataReader = csv.DictReader(f)
 
